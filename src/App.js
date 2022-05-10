@@ -1,15 +1,42 @@
+
+import Header from "./components/Header";
 import React from "react";
-import TelaInicial from "./pages/TelaInicial";
-import CadastroJob from "./pages/CadastroJob";
-import TelaListaJobs from "./pages/TelaListaJobs";
-import Carrinho from "./pages/Carrinho";
-import axios from "axios";
+import Cadastro from "./pages/Cadastro";
+import BuscarJobs from "./pages/BuscarJobs";
 
-export default class  App extends React.Component {
-  render(){
-    return(
-      <section> Oi, mundo!</section>
-    )}
+export default class App extends React.Component {
+  state = {
+    telaAtual: "cadastro",
+  };
+
+  vaiParaCadastro = () => {
+    this.setState({ telaAtual: "cadastro" });
+  };
+
+  vaiParaBusca = () => {
+    this.setState({ telaAtual: "busca" });
+  };
+
+  escolheTela = () => {
+    switch (this.setState.telaAtual) {
+      case "cadastro":
+        return <Cadastro />;
+      case "busca":
+        return <BuscarJobs />;
+      default:
+        return "cadastro";
+    }
+  };
+
+  render() {
+    return (
+      <div>
+        <Header />
+        <h2>Bem-vindo à LabeNinjas!</h2>
+        <button onClick={() => this.vaiParaCadastro}>Cadastrar um Job</button>
+        <button onClick={() => this.vaiParaBusca}>Contratar Jobs</button>
+      </div>
+    );
+  }
 }
-
 
