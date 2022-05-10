@@ -1,11 +1,45 @@
 import React from "react";
-import Header from "../components/Header";
+import axios from "axios";
 
 export default class BuscarJobs extends React.Component {
+  state = {
+    jobs: [],
+  };
+
+  componentDidMount() {
+    this.getAllJobs();
+  }
+
+  getAllJobs = () => {
+    const url = "https://labeninjas.herokuapp.com/jobs";
+    axios
+      .get(url, {
+        headers: {
+          Authorization: "d65e9d0c-c096-4aa7-b4c2-f5ac96adb4d6",
+        },
+      })
+      .then((res) => {
+        this.setState({ jobs: res.data.jobs });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
   render() {
+    const jobList = this.state.jobs.map((job) => {
+      return (
+        <div>
+          <p>{job.title}</p>
+          <p>Preço: R${job.price.toFixed(2)}</p>
+          <p>Prazo: {job.dueDate}</p>
+          <button>ver detalhe</button>
+          <button>romover job</button>
+          <button>adicionar carrinho</button>
+        </div>
+      );
+    });
     return (
       <>
-        <Header />
         <h2>Busca por Jobs</h2>
         <input></input>
         <input></input>
@@ -22,11 +56,10 @@ export default class BuscarJobs extends React.Component {
         </select>
         <hr></hr>
         <h2>Lista de Jobs</h2>
-        <h4>Nome do Job</h4>
-        <button>Ver detalhes</button>
-        <button>Remover Job</button>
-        <button>Adicionar ao carrinho</button>
-        <hr></hr>
+        <div>
+          <h1>job</h1>
+          {jobList}
+        </div>
       </>
     );
   }
