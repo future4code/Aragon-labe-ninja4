@@ -33,7 +33,7 @@ export default class BuscarJobs extends React.Component {
           <p>{job.title}</p>
           <p>Preço: R${job.price.toFixed(2)}</p>
           <p>Prazo: {formataData(job.dueDate)}</p>
-          <button>ver detalhe</button>
+          <button onClick={this.props.vaiParaDetalhes}>ver detalhe</button>
           <button>romover job</button>
           <button>adicionar carrinho</button>
         </div>

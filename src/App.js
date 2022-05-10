@@ -3,10 +3,12 @@ import Cadastro from "./pages/Cadastro";
 import BuscarJobs from "./pages/BuscarJobs";
 import BemVindo from "./pages/Bemvindo";
 import Carrinho from "./pages/Carrinho";
+import DetalhesJobs from "./pages/DetalhesJobs";
 
 export default class App extends React.Component {
   state = {
     telaAtual: "inicio",
+    jobClicado: "",
   };
 
   vaiParaCadastro = () => {
@@ -25,14 +27,25 @@ export default class App extends React.Component {
     this.setState({ telaAtual: "carrinho" });
   };
 
+  vaiParaDetalhes = (id) => {
+    this.setState({ telaAtual: "detalhes", jobClicado: id });
+  };
+
   escolheTela = () => {
     switch (this.state.telaAtual) {
       case "cadastro":
         return <Cadastro />;
       case "busca":
-        return <BuscarJobs />;
+        return <BuscarJobs vaiParaDetalhes={this.vaiParaDetalhes} />;
       case "carrinho":
         return <Carrinho />;
+      case "detalhes":
+        return (
+          <DetalhesJobs
+            vaiParaBusca={this.vaiParaBusca}
+            id={this.state.jobClicado}
+          />
+        );
       case "inicio":
         return (
           <BemVindo
