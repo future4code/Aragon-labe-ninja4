@@ -1,12 +1,10 @@
 // import Header from "./components/Header";
 import React from "react";
-import Header from "../components/Header";
 
 export default class Cadastro extends React.Component {
   render() {
     return (
       <>
-        <Header />
         <h2>Cadastre um Novo Job</h2>
         <label>
           <p>Tíulo:</p>
