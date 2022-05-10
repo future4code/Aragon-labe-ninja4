@@ -1,5 +1,6 @@
 import React from "react";
 import axios from "axios";
+import formataData from "../constants/FormataData";
 
 export default class BuscarJobs extends React.Component {
   state = {
@@ -31,7 +32,7 @@ export default class BuscarJobs extends React.Component {
         <div>
           <p>{job.title}</p>
           <p>Preço: R${job.price.toFixed(2)}</p>
-          <p>Prazo: {job.dueDate}</p>
+          <p>Prazo: {formataData(job.dueDate)}</p>
           <button>ver detalhe</button>
           <button>romover job</button>
           <button>adicionar carrinho</button>
