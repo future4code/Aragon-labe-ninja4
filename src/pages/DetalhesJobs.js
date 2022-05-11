@@ -1,5 +1,6 @@
 import react from "react";
 import axios from "axios";
+import moment from "moment";
 
 export default class DetalhesJobs extends react.Component {
   state = {
@@ -32,7 +33,7 @@ export default class DetalhesJobs extends react.Component {
       <div>
         <h2>{this.state.jobs.title}</h2>
         <p>Preço: R${this.state.jobs.price},00</p>
-        <p>Prazo: {this.state.jobs.dueDate}</p>
+        <p>Prazo: {moment(this.state.jobs.dueDate).format("DD/MM/YYYY")}</p>
         <p>descrição:{this.state.jobs.description}</p>
         <h3>formas de pagamento</h3>
         <p>{this.state.jobs.paymentMethods}</p>

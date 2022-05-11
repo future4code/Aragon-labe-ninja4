@@ -38,7 +38,7 @@ export default class App extends React.Component {
       case "busca":
         return <BuscarJobs vaiParaDetalhes={this.vaiParaDetalhes} />;
       case "carrinho":
-        return <Carrinho />;
+        return <Carrinho vaiParaBusca={this.vaiParaBusca} />;
       case "detalhes":
         return (
           <DetalhesJobs
