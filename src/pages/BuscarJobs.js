@@ -16,6 +16,7 @@ export default class BuscarJobs extends React.Component {
   }
 
   deleteJob = (id) => {
+    if (window.confirm(`Tem certeza que deseja excluir?`)){
     const url = `https://labeninjas.herokuapp.com/jobs/${id}`;
     axios
       .delete(url, {
@@ -30,7 +31,8 @@ export default class BuscarJobs extends React.Component {
       .catch((err) => {
         alert("ocorreu um erro tente novamente!");
       });
-  };
+    }
+    };
 
   getAllJobs = () => {
     const url = "https://labeninjas.herokuapp.com/jobs";
@@ -57,8 +59,8 @@ export default class BuscarJobs extends React.Component {
           <button onClick={() => this.props.vaiParaDetalhes(job.id)}>
             ver detalhe
           </button>
-          <button onClick={() => this.deleteJob(job.id)}>romover job</button>
-          <button>adicionar carrinho</button>
+          <button onClick={() => this.deleteJob(job.id)}>remover job</button>
+          <button>adicionar ao carrinho</button>
         </div>
       );
     });
