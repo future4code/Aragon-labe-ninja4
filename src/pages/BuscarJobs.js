@@ -1,6 +1,6 @@
 import React from "react";
 import axios from "axios";
-import formataData from "../constants/FormataData";
+import moment from "moment";
 
 export default class BuscarJobs extends React.Component {
   state = {
@@ -10,6 +10,27 @@ export default class BuscarJobs extends React.Component {
   componentDidMount() {
     this.getAllJobs();
   }
+
+  componentDidUpdate() {
+    this.getAllJobs();
+  }
+
+  deleteJob = (id) => {
+    const url = `https://labeninjas.herokuapp.com/jobs/${id}`;
+    axios
+      .delete(url, {
+        headers: {
+          Authorization: "d65e9d0c-c096-4aa7-b4c2-f5ac96adb4d6",
+        },
+      })
+      .then((res) => {
+        alert("job deletado com sucesso!");
+        this.getAllJobs();
+      })
+      .catch((err) => {
+        alert("ocorreu um erro tente novamente!");
+      });
+  };
 
   getAllJobs = () => {
     const url = "https://labeninjas.herokuapp.com/jobs";
@@ -32,11 +53,11 @@ export default class BuscarJobs extends React.Component {
         <div>
           <p>{job.title}</p>
           <p>Preço: R${job.price.toFixed(2)}</p>
-          <p>Prazo: {formataData(job.dueDate)}</p>
+          <p>Prazo: {moment(job.dueDate).format("DD/MM/YYYY")}</p>
           <button onClick={() => this.props.vaiParaDetalhes(job.id)}>
             ver detalhe
           </button>
-          <button>romover job</button>
+          <button onClick={() => this.deleteJob(job.id)}>romover job</button>
           <button>adicionar carrinho</button>
         </div>
       );
@@ -62,6 +83,7 @@ export default class BuscarJobs extends React.Component {
         <div>
           <h1>job</h1>
           {jobList}
+          <hr></hr>
         </div>
       </>
     );
