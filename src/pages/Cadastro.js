@@ -8,9 +8,8 @@ export default class Cadastro extends React.Component {
     inputDescricao: "",
     inputPreco: 0,
     inputFormaDePagamento: [""],
-    inputData: ""
-  }
-
+    inputData: "",
+  };
 
   onChangeInputTitulo = (event) => {
     this.setState({ inputTitulo: event.target.value });
@@ -33,41 +32,37 @@ export default class Cadastro extends React.Component {
   };
 
   cadastrarServico = () => {
-    const url = "https://labeninjas.herokuapp.com/jobs"
+    const url = "https://labeninjas.herokuapp.com/jobs";
 
     const body = {
       title: this.state.inputTitulo,
       description: this.state.inputDescricao,
       price: this.state.inputPreco,
       paymentMethods: this.state.inputFormaDePagamento,
-      dueDate: this.state.inputData
-    }
-    
+      dueDate: this.state.inputData,
+    };
+
     axios
-      .post(url,
-        body,
-        {
-          headers: {
-            Authorization: "d65e9d0c-c096-4aa7-b4c2-f5ac96adb4d6"
-          }
-        }
-      )
+      .post(url, body, {
+        headers: {
+          Authorization: "d65e9d0c-c096-4aa7-b4c2-f5ac96adb4d6",
+        },
+      })
       .then((response) => {
-        alert(response.data.message)
-        this.setState({ inputTitulo: "" })
-        this.setState({ inputDescricao: "" })
-        this.setState({ inputPreco: "" })
-        this.setState({ inputFormaDePagamento: [""] })
-        this.setState({ inputData: "" })
+        if (window.confirm(`Tem certeza que deseja incluir esse job?`))
+          alert(response.data.message);
+        this.setState({ inputTitulo: "" });
+        this.setState({ inputDescricao: "" });
+        this.setState({ inputPreco: "" });
+        this.setState({ inputFormaDePagamento: [""] });
+        this.setState({ inputData: "" });
       })
       .catch((error) => {
-        console.log(error.response.data)
-      })
-  }
+        console.log(error.response.data);
+      });
+  };
 
   render() {
-  
-    
     return (
       <>
         <h2>Cadastre um Novo Job</h2>
@@ -102,15 +97,13 @@ export default class Cadastro extends React.Component {
           <b>Formas de pagamento</b>
         </h4>
 
-        <select name="opcoes"
+        <select
+          name="opcoes"
           required
           value={this.state.inputFormaDePagamento}
           onChange={this.onChangeInputFormaDePagamento}
         >
-
-          <option disabled>
-            Selecione suas opções...
-          </option>
+          <option disabled>Selecione suas opções...</option>
 
           <option value="boleto">Boleto</option>
           <option value="credito">Cartão de Crédito</option>
@@ -121,12 +114,17 @@ export default class Cadastro extends React.Component {
 
         <form action="data">
           <label for="">Data:</label>
-          <input type="date" id="" name="date"
+          <input
+            type="date"
+            id=""
+            name="date"
             value={this.state.inputData}
             onChange={this.onChangeInputData}
           />
         </form>
-
+        <button onClick={this.props.vaiParaBusca}>
+          Voltar para a lista de Jobs
+        </button>
         <button onClick={this.cadastrarServico}>Cadastrar Serviço</button>
       </>
     );

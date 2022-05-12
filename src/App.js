@@ -20,7 +20,8 @@ export default class App extends React.Component {
     );
     if (indiceDoCarrinho === -1) {
       const novoCarrinho = [...this.state.carrinho, job];
-      this.setState({ carrinho: novoCarrinho });
+      if (window.confirm(`deseja incluir job no carrinho?`))
+        this.setState({ carrinho: novoCarrinho });
     }
   };
 
@@ -47,7 +48,7 @@ export default class App extends React.Component {
   escolheTela = () => {
     switch (this.state.telaAtual) {
       case "cadastro":
-        return <Cadastro />;
+        return <Cadastro vaiParaBusca={this.vaiParaBusca} />;
       case "busca":
         return (
           <BuscarJobs
@@ -56,9 +57,13 @@ export default class App extends React.Component {
           />
         );
       case "carrinho":
-        return <Carrinho 
-        carrinho={this.state.carrinho}
-        vaiParaBusca={this.vaiParaBusca} />;
+        return (
+          <Carrinho
+            carrinho={this.state.carrinho}
+            vaiParaBusca={this.vaiParaBusca}
+            vaiParaCarrinho={this.vaiParaCarrinho}
+          />
+        );
       case "detalhes":
         return (
           <DetalhesJobs
