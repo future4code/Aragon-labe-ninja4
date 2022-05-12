@@ -9,6 +9,19 @@ export default class App extends React.Component {
   state = {
     telaAtual: "inicio",
     jobClicado: "",
+    carrinho: [],
+  };
+
+  adicionarCarrinho = (job) => {
+    const indiceDoCarrinho = this.state.carrinho.findIndex(
+      (produtoNoCarrinho) => {
+        return job.id === produtoNoCarrinho.id;
+      }
+    );
+    if (indiceDoCarrinho === -1) {
+      const novoCarrinho = [...this.state.carrinho, job];
+      this.setState({ carrinho: novoCarrinho });
+    }
   };
 
   vaiParaCadastro = () => {
@@ -36,9 +49,16 @@ export default class App extends React.Component {
       case "cadastro":
         return <Cadastro />;
       case "busca":
-        return <BuscarJobs vaiParaDetalhes={this.vaiParaDetalhes} />;
+        return (
+          <BuscarJobs
+            adicionarCarrinho={this.adicionarCarrinho}
+            vaiParaDetalhes={this.vaiParaDetalhes}
+          />
+        );
       case "carrinho":
-        return <Carrinho vaiParaBusca={this.vaiParaBusca} />;
+        return <Carrinho 
+        carrinho={this.state.carrinho}
+        vaiParaBusca={this.vaiParaBusca} />;
       case "detalhes":
         return (
           <DetalhesJobs
@@ -62,7 +82,7 @@ export default class App extends React.Component {
     return (
       <div>
         <>
-          <h1>labeNinjas</h1>
+          <h1>LabeNinjas</h1>
           <button onClick={this.vaiParaInicio}>Home</button>
           <button onClick={this.vaiParaCarrinho}>
             Ir para Carrinho de Compras

@@ -5,6 +5,7 @@ import moment from "moment";
 export default class BuscarJobs extends React.Component {
   state = {
     jobs: [],
+    contratar: false,
   };
 
   componentDidMount() {
@@ -16,23 +17,43 @@ export default class BuscarJobs extends React.Component {
   }
 
   deleteJob = (id) => {
-    if (window.confirm(`Tem certeza que deseja excluir?`)){
+    if (window.confirm(`Tem certeza que deseja excluir?`)) {
+      const url = `https://labeninjas.herokuapp.com/jobs/${id}`;
+      axios
+        .delete(url, {
+          headers: {
+            Authorization: "d65e9d0c-c096-4aa7-b4c2-f5ac96adb4d6",
+          },
+        })
+        .then((res) => {
+          window.confirm("deseja");
+          this.getAllJobs();
+        })
+        .catch((err) => {
+          alert("ocorreu um erro tente novamente!");
+        });
+    }
+  };
+
+  contratarServico = (id) => {
     const url = `https://labeninjas.herokuapp.com/jobs/${id}`;
+    const body = {
+      taken: true,
+    };
+
     axios
-      .delete(url, {
+      .post(url, body, {
         headers: {
           Authorization: "d65e9d0c-c096-4aa7-b4c2-f5ac96adb4d6",
         },
       })
       .then((res) => {
-        alert("job deletado com sucesso!");
-        this.getAllJobs();
+        alert(res.data.message);
       })
-      .catch((err) => {
-        alert("ocorreu um erro tente novamente!");
+      .catch((error) => {
+        console.log(error.response.data);
       });
-    }
-    };
+  };
 
   getAllJobs = () => {
     const url = "https://labeninjas.herokuapp.com/jobs";
@@ -56,11 +77,19 @@ export default class BuscarJobs extends React.Component {
           <p>{job.title}</p>
           <p>Preço: R${job.price.toFixed(2)}</p>
           <p>Prazo: {moment(job.dueDate).format("DD/MM/YYYY")}</p>
+          <p>pego: {job.taken}</p>
           <button onClick={() => this.props.vaiParaDetalhes(job.id)}>
             ver detalhe
           </button>
           <button onClick={() => this.deleteJob(job.id)}>remover job</button>
-          <button>adicionar ao carrinho</button>
+          <button
+            onClick={() => {
+              this.props.adicionarCarrinho(job).contratarServico(job.id);
+            }}
+          >
+            Adicionar ao Carrinho
+          </button>
+          <hr></hr>
         </div>
       );
     });
@@ -82,8 +111,8 @@ export default class BuscarJobs extends React.Component {
         </select>
         <hr></hr>
         <h2>Lista de Jobs</h2>
+        <hr></hr>
         <div>
-          <h1>job</h1>
           {jobList}
           <hr></hr>
         </div>
