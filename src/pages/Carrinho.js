@@ -28,7 +28,14 @@ export default class Carrinho extends React.Component {
   };
 
   finalizarCompra = () => {
-    this.setState({ jobList: "" });
+    this.props.carrinho.splice(0, this.props.carrinho.length);
+    alert("compra finalizada com sucesso!");
+  };
+
+  removerJob = (id) => {
+    const indice = this.props.carrinho.indexOf(id);
+    this.props.carrinho.splice(indice, 1);
+    this.props.vaiParaCarrinho();
   };
 
   retirarServico = (id) => {
@@ -61,7 +68,7 @@ export default class Carrinho extends React.Component {
           </p>
           <button
             onClick={() => {
-              this.retirarServico(job.id);
+              this.removerJob(job.id);
             }}
           >
             remover
@@ -70,10 +77,10 @@ export default class Carrinho extends React.Component {
         </div>
       );
     });
-    const total = jobList.reduce(getTotal, 0);
-    function getTotal(total, job) {
-      return total + job.price;
-    }
+    const total = this.props.carrinho.reduce(
+      (total, job) => total + job.price,
+      0
+    );
     return (
       <>
         <h1>Dados da compra</h1>
