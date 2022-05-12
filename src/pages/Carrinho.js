@@ -27,16 +27,38 @@ export default class Carrinho extends React.Component {
       });
   };
 
+  contratarServico = (id) => {
+    const url = `https://labeninjas.herokuapp.com/jobs/${id}`;
+    const body = {
+      taken: true,
+    };
+
+    axios
+      .post(url, body, {
+        headers: {
+          Authorization: "d65e9d0c-c096-4aa7-b4c2-f5ac96adb4d6",
+        },
+      })
+      .then((res) => {
+      })
+      .catch((error) => {
+      });
+  };
+
   finalizarCompra = () => {
-    this.props.carrinho.splice(0, this.props.carrinho.length);
+    for (let job of this.props.carrinho){
+       this.contratarServico(job.id)
+    }
+    this.props.limpaCarrinho();
     alert("compra finalizada com sucesso!");
   };
 
   removerJob = (id) => {
+    if (window.confirm(`Tem certeza que remover este Job do carrinho?`)){
     const indice = this.props.carrinho.indexOf(id);
     this.props.carrinho.splice(indice, 1);
     this.props.vaiParaCarrinho();
-  };
+  }};
 
   retirarServico = (id) => {
     const url = `https://labeninjas.herokuapp.com/jobs/${id}`;

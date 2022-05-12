@@ -45,6 +45,10 @@ export default class App extends React.Component {
     this.setState({ telaAtual: "detalhes", jobClicado: id });
   };
 
+  limpaCarrinho = () => {
+    this.setState({ carrinho: []})
+  }
+
   escolheTela = () => {
     switch (this.state.telaAtual) {
       case "cadastro":
@@ -62,6 +66,7 @@ export default class App extends React.Component {
             carrinho={this.state.carrinho}
             vaiParaBusca={this.vaiParaBusca}
             vaiParaCarrinho={this.vaiParaCarrinho}
+            limpaCarrinho={this.limpaCarrinho}
           />
         );
       case "detalhes":

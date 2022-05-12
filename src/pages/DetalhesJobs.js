@@ -4,8 +4,8 @@ import moment from "moment";
 
 export default class DetalhesJobs extends react.Component {
   state = {
-    jobs: [],
-    Jobs: [],
+    job: {},
+    // Jobs: [],
   };
 
   componentDidMount() {
@@ -21,7 +21,8 @@ export default class DetalhesJobs extends react.Component {
         },
       })
       .then((res) => {
-        this.setState({ jobs: res.data });
+        console.log(res.data)
+        this.setState({ job: res.data });
       })
       .catch((err) => {
         console.error(err);
@@ -31,12 +32,16 @@ export default class DetalhesJobs extends react.Component {
   render() {
     return (
       <div>
-        <h2>{this.state.jobs.title}</h2>
-        <p>Preço: R${this.state.jobs.price},00</p>
-        <p>Prazo: {moment(this.state.jobs.dueDate).format("DD/MM/YYYY")}</p>
-        <p>descrição:{this.state.jobs.description}</p>
+        <h2>{this.state.job.title}</h2>
+        <p>Preço: R${this.state.job.price},00</p>
+        <p>Prazo: {moment(this.state.job.dueDate).format("DD/MM/YYYY")}</p>
+        <p>descrição:{this.state.job.description}</p>
         <h3>formas de pagamento</h3>
-        <p>{this.state.jobs.paymentMethods}</p>
+        <ul>          
+        {this.state.job.paymentMethods && this.state.job.paymentMethods.map((method)=>{
+          return <li>{method}</li>
+        })}
+        </ul>
         <button onClick={this.props.vaiParaBusca}>
           voltar para lista de jobs
         </button>

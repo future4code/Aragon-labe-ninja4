@@ -15,10 +15,6 @@ export default class BuscarJobs extends React.Component {
     this.getAllJobs();
   }
 
-  componentDidUpdate() {
-    this.getAllJobs();
-  }
-
   novaPesquisa = (event) => {
     this.setState({ pesquisa: event.target.value });
   };
@@ -41,7 +37,6 @@ export default class BuscarJobs extends React.Component {
           },
         })
         .then((res) => {
-          window.confirm("deseja");
           this.getAllJobs();
         })
         .catch((err) => {
@@ -50,25 +45,7 @@ export default class BuscarJobs extends React.Component {
     }
   };
 
-  contratarServico = (id) => {
-    const url = `https://labeninjas.herokuapp.com/jobs/${id}`;
-    const body = {
-      taken: true,
-    };
 
-    axios
-      .post(url, body, {
-        headers: {
-          Authorization: "d65e9d0c-c096-4aa7-b4c2-f5ac96adb4d6",
-        },
-      })
-      .then((res) => {
-        alert(res.data.message);
-      })
-      .catch((error) => {
-        console.log(error.response.data);
-      });
-  };
 
   getAllJobs = () => {
     const url = "https://labeninjas.herokuapp.com/jobs";
@@ -129,11 +106,12 @@ export default class BuscarJobs extends React.Component {
               );
             })
             .map((job) => {
+              console.log(job.dueDate)
               return (
                 <div>
                   <p>{job.title}</p>
                   <p>Preço: R${job.price.toFixed(2)}</p>
-                  <p>Prazo: {moment(job.dueDate).format("DD/MM/YYYY")}</p>
+                  <p>Prazo: {moment.utc(job.dueDate).format("DD/MM/YYYY")}</p>
                   <button onClick={() => this.props.vaiParaDetalhes(job.id)}>
                     ver detalhe
                   </button>
@@ -144,7 +122,6 @@ export default class BuscarJobs extends React.Component {
                     onClick={() => {
                       this.props
                         .adicionarCarrinho(job)
-                        .contratarServico(job.id);
                     }}
                   >
                     Adicionar ao Carrinho
