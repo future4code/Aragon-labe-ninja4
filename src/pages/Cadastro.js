@@ -7,7 +7,7 @@ export default class Cadastro extends React.Component {
     inputTitulo: "",
     inputDescricao: "",
     inputPreco: 0,
-    inputFormaDePagamento: [""],
+    metodoPagamento: [],
     inputData: "",
   };
 
@@ -31,6 +31,11 @@ export default class Cadastro extends React.Component {
     this.setState({ inputData: event.target.value });
   };
 
+  handleMetodoPagamento = (event) => {
+    const value = Array.from(event.target.selectedOptions, option => option.value);
+    this.setState({ metodoPagamento: value });
+};
+
   cadastrarServico = () => {
     const url = "https://labeninjas.herokuapp.com/jobs";
 
@@ -38,10 +43,10 @@ export default class Cadastro extends React.Component {
       title: this.state.inputTitulo,
       description: this.state.inputDescricao,
       price: this.state.inputPreco,
-      paymentMethods: this.state.inputFormaDePagamento,
+      paymentMethods: this.state.metodoPagamento,
       dueDate: this.state.inputData,
     };
-
+console.log(body)
     axios
       .post(url, body, {
         headers: {
@@ -98,26 +103,26 @@ export default class Cadastro extends React.Component {
         </h4>
 
         <select
-          name="opcoes"
+          name="metodosPagamentos"
           required
-          value={this.state.inputFormaDePagamento}
-          onChange={this.onChangeInputFormaDePagamento}
+          onChange={this.handleMetodoPagamento}
+          multiple
         >
-          <option disabled>Selecione suas opções...</option>
+          <option disabled>Selecione as formas de pagamento</option>
 
           <option value="boleto">Boleto</option>
-          <option value="credito">Cartão de Crédito</option>
+          <option value="crédito">Cartão de Crédito</option>
           <option value="débito">Cartão de Débito</option>
           <option value="paypal">Paypal</option>
           <option value="pix">Pix</option>
         </select>
 
         <form action="data">
-          <label for="">Data:</label>
+          <label htmlFor="">Data:</label>
           <input
             type="date"
             id=""
-            name="date"
+            name="data"
             value={this.state.inputData}
             onChange={this.onChangeInputData}
           />
@@ -125,7 +130,7 @@ export default class Cadastro extends React.Component {
         <button onClick={this.props.vaiParaBusca}>
           Voltar para a lista de Jobs
         </button>
-        <button onClick={this.cadastrarServico}>Cadastrar Serviço</button>
+        <button type="submit" onClick={this.cadastrarServico}>Cadastrar Serviço</button>
       </>
     );
   }
