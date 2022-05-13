@@ -1,5 +1,36 @@
 import React from "react";
 import axios from "axios";
+import moment from "moment";
+import styled from "styled-components";
+
+const Button = styled.button`
+  margin: 1%;
+  &:hover {
+    background-color: violet;
+    cursor: pointer;
+  }
+`;
+
+const Main = styled.div`
+  background-color: #9933ff;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  align-content: center;
+`;
+
+const Job = styled.div`
+  background-color: #9933ff;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  align-content: center;
+`;
+
 
 export default class Carrinho extends React.Component {
   state = {
@@ -86,13 +117,13 @@ export default class Carrinho extends React.Component {
           <p>
             {job.title} - R${job.price.toFixed(2)}
           </p>
-          <button
+          <Button
             onClick={() => {
               this.removerJob(job.id);
             }}
           >
             remover
-          </button>
+          </Button>
           <hr></hr>
         </div>
       );
@@ -102,24 +133,24 @@ export default class Carrinho extends React.Component {
       0
     );
     return (
-      <>
+      <Main>
         <h1>Dados da compra</h1>
         <p>Preço total: R$ {total.toFixed(2)}</p>
-        <button onClick={this.props.vaiParaBusca}>
+        <Button onClick={this.props.vaiParaBusca}>
           Voltar para a lista de Jobs
-        </button>
-        <button
+        </Button>
+        <Button
           onClick={() => {
             this.finalizarCompra();
           }}
         >
           Finalizar compra
-        </button>
+        </Button>
         <hr></hr>
         <h2>Carrinho</h2>
         <hr></hr>
-        <div>{jobList}</div>
-      </>
+        <Job>{jobList}</Job>
+      </Main>
     );
   }
 }

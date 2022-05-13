@@ -1,6 +1,54 @@
 import React from "react";
 import axios from "axios";
 import moment from "moment";
+import styled from "styled-components";
+
+const Div = styled.div`
+  background-color: #9933ff;
+  width: 97.3vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  align-content: center;
+`;
+const Main = styled.div`
+  background-color: #9933ff;
+  width: 97.3vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  align-content: center;
+`;
+
+const Job = styled.div`
+  background-color: #9933ff;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  align-content: center;
+  border: 1px solid black;
+`;
+
+const Button = styled.button`
+  margin: 1%;
+  width: 10%;
+  &:hover {
+    background-color: violet;
+    cursor: pointer;
+  }
+`;
+
+const Input = styled.input`
+  margin: 1%;
+  width: 20%;
+  &:hover {
+    opacity: 80%;
+  }
+`;
 
 export default class BuscarJobs extends React.Component {
   state = {
@@ -67,20 +115,20 @@ export default class BuscarJobs extends React.Component {
   };
   render() {
     return (
-      <>
+      <Main>
         <h2>Busca por Jobs</h2>
-        <input
-          placeholder="Pesquisa"
+        <Input
+          placeholder="🔍 Digite o job que está procurando"
           value={this.state.pesquisa}
           onChange={this.novaPesquisa}
         />
-        <input
+        <Input
           type="number"
           placeholder="Preço Mínimo"
           value={this.state.precoMinimo}
           onChange={this.alteraPrecoMin}
         />
-        <input
+        <Input
           type="number"
           placeholder="Preço Máximo"
           value={this.state.precoMaximo}
@@ -102,7 +150,7 @@ export default class BuscarJobs extends React.Component {
         <hr></hr>
         <h2>Lista de Jobs</h2>
         <hr></hr>
-        <div>
+        <Div>
           {this.state.jobs
             .filter((job) => {
               return job.title
@@ -141,30 +189,30 @@ export default class BuscarJobs extends React.Component {
             .map((job) => {
               console.log(job.dueDate);
               return (
-                <div>
+                <Job>
                   <p>{job.title}</p>
                   <p>Preço: R${job.price.toFixed(2)}</p>
                   <p>Prazo: {moment.utc(job.dueDate).format("DD/MM/YYYY")}</p>
-                  <button onClick={() => this.props.vaiParaDetalhes(job.id)}>
+                  <Button onClick={() => this.props.vaiParaDetalhes(job.id)}>
                     ver detalhe
-                  </button>
-                  <button onClick={() => this.deleteJob(job.id)}>
+                  </Button>
+                  <Button onClick={() => this.deleteJob(job.id)}>
                     remover job
-                  </button>
-                  <button
+                  </Button>
+                  <Button
                     onClick={() => {
                       this.props.adicionarCarrinho(job);
                     }}
                   >
                     Adicionar ao Carrinho
-                  </button>
+                  </Button>
                   <hr></hr>
-                </div>
+                </Job>
               );
             })}
           <hr></hr>
-        </div>
-      </>
+        </Div>
+      </Main>
     );
   }
 }

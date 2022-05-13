@@ -1,7 +1,15 @@
 import react from "react";
 import axios from "axios";
 import moment from "moment";
+import styled from "styled-components";
 
+const Button = styled.button`
+  margin: 1%;
+  &:hover {
+    background-color: violet;
+    cursor: pointer;
+  }
+`;
 export default class DetalhesJobs extends react.Component {
   state = {
     job: {},
@@ -21,7 +29,7 @@ export default class DetalhesJobs extends react.Component {
         },
       })
       .then((res) => {
-        console.log(res.data)
+        console.log(res.data);
         this.setState({ job: res.data });
       })
       .catch((err) => {
@@ -37,14 +45,15 @@ export default class DetalhesJobs extends react.Component {
         <p>Prazo: {moment(this.state.job.dueDate).format("DD/MM/YYYY")}</p>
         <p>descrição:{this.state.job.description}</p>
         <h3>formas de pagamento</h3>
-        <ul>          
-        {this.state.job.paymentMethods && this.state.job.paymentMethods.map((method)=>{
-          return <li>{method}</li>
-        })}
+        <ul>
+          {this.state.job.paymentMethods &&
+            this.state.job.paymentMethods.map((method) => {
+              return <li>{method}</li>;
+            })}
         </ul>
-        <button onClick={this.props.vaiParaBusca}>
+        <Button onClick={this.props.vaiParaBusca}>
           voltar para lista de jobs
-        </button>
+        </Button>
         <hr></hr>
       </div>
     );
