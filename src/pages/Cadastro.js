@@ -32,9 +32,12 @@ export default class Cadastro extends React.Component {
   };
 
   handleMetodoPagamento = (event) => {
-    const value = Array.from(event.target.selectedOptions, option => option.value);
+    const value = Array.from(
+      event.target.selectedOptions,
+      (option) => option.value
+    );
     this.setState({ metodoPagamento: value });
-};
+  };
 
   cadastrarServico = () => {
     const url = "https://labeninjas.herokuapp.com/jobs";
@@ -46,7 +49,7 @@ export default class Cadastro extends React.Component {
       paymentMethods: this.state.metodoPagamento,
       dueDate: this.state.inputData,
     };
-console.log(body)
+    console.log(body);
     axios
       .post(url, body, {
         headers: {
@@ -130,7 +133,9 @@ console.log(body)
         <button onClick={this.props.vaiParaBusca}>
           Voltar para a lista de Jobs
         </button>
-        <button type="submit" onClick={this.cadastrarServico}>Cadastrar Serviço</button>
+        <button type="submit" onClick={this.cadastrarServico}>
+          Cadastrar Serviço
+        </button>
       </>
     );
   }
