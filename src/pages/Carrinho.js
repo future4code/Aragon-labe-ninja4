@@ -19,7 +19,7 @@ const Main = styled.div`
   background-color: #F78002;
   color: #1B4458 ;
   width: 100%;
-  height: 100%;
+  min-height: 55vh;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -33,7 +33,7 @@ const Main = styled.div`
 const Job = styled.div`
   background-color:antiquewhite;
   width: 100%;
-  height: 100%;
+  /* min-height: 5vh; */
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -122,7 +122,7 @@ export default class Carrinho extends React.Component {
   render() {
     const jobList = this.props.carrinho.map((job) => {
       return (
-        <div>
+        <Job>
           <p>
             {job.title} - R${job.price.toFixed(2)}
           </p>
@@ -134,7 +134,7 @@ export default class Carrinho extends React.Component {
             remover
           </Button>
           <hr></hr>
-        </div>
+        </Job>
       );
     });
     const total = this.props.carrinho.reduce(
