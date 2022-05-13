@@ -15,7 +15,6 @@ const Button = styled.button`
 `;
 
 const Texto = styled.div`
-
 background-color: antiquewhite;
   color: #F78002;
   display: flex;
@@ -23,14 +22,16 @@ background-color: antiquewhite;
   align-items: center;
   align-content: center;
   width: 100%;
-  height: 100%;
-  margin-top: 100px;
+  min-height: 80vh;
+  /* margin-top: 100px; */
 
   h1{
     text-decoration: underline;
+    margin: 20px;
   }
 
 h2{
+    margin: 30px;
     color: #1B4458;
     &:hover{
       text-transform: uppercase;

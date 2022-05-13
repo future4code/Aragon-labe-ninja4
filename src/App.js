@@ -8,14 +8,14 @@ import styled from "styled-components";
 import "./App.css";
 
 const Main = styled.div`
-  margin: 10px ;
+  margin: 0 ;
   background-color: #1B4458;
   color: #F78002;
   display: flex;
   flex-direction: column;
   align-items: center;
   align-content: center;
-  height: 100vh;
+  /* height: 100vh; */
 `;
 
 const Button = styled.button`
