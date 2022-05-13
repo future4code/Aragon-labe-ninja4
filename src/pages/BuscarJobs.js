@@ -4,8 +4,8 @@ import moment from "moment";
 import styled from "styled-components";
 
 const Div = styled.div`
-  background-color: #9933ff;
-  width: 97.3vw;
+  background-color:antiquewhite;
+  width: 100%;
   height: 100vh;
   display: flex;
   flex-direction: column;
@@ -13,8 +13,9 @@ const Div = styled.div`
   align-content: center;
 `;
 const Main = styled.div`
-  background-color: #9933ff;
-  width: 97.3vw;
+  background-color: #F78002;
+  color: #1B4458;
+  width: 100%;
   height: 100vh;
   display: flex;
   flex-direction: column;
@@ -23,28 +24,44 @@ const Main = styled.div`
 `;
 
 const Job = styled.div`
-  background-color: #9933ff;
-  width: 100%;
+  background-color: #1B4458;
+  color: #F78002;
+  width: 80%;
   height: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
   align-content: center;
-  border: 1px solid black;
+  column-count: 3;
+  border: 1px dashed #F78002;
+  text-transform: capitalize;
+  &:hover{
+    font-weight: bold;
+  }
+
+  h2{
+    text-decoration: underline;
+  }
 `;
 
 const Button = styled.button`
   margin: 1%;
   width: 10%;
+  border-radius: 75px 75px 75px 75px;
   &:hover {
-    background-color: violet;
+    background-color: #F78002;
     cursor: pointer;
+    text-transform: uppercase;
+    font-weight:bold;
+    color:#1B4458;
   }
 `;
 
 const Input = styled.input`
   margin: 1%;
   width: 20%;
+  border-radius: 75px 75px 75px 75px;
+  padding: 5px;
   &:hover {
     opacity: 80%;
   }
@@ -134,7 +151,7 @@ export default class BuscarJobs extends React.Component {
           value={this.state.precoMaximo}
           onChange={this.alteraPrecoMax}
         />
-        <label for="sort"></label>
+        <label for="sort">Filtre por Ordenação</label>
         <select
           name="sort"
           value={this.state.ordem}
@@ -148,9 +165,10 @@ export default class BuscarJobs extends React.Component {
         </select>
 
         <hr></hr>
+        <Div>
         <h2>Lista de Jobs</h2>
         <hr></hr>
-        <Div>
+        
           {this.state.jobs
             .filter((job) => {
               return job.title
@@ -194,10 +212,10 @@ export default class BuscarJobs extends React.Component {
                   <p>Preço: R${job.price.toFixed(2)}</p>
                   <p>Prazo: {moment.utc(job.dueDate).format("DD/MM/YYYY")}</p>
                   <Button onClick={() => this.props.vaiParaDetalhes(job.id)}>
-                    ver detalhe
+                    Ver Detalhes
                   </Button>
                   <Button onClick={() => this.deleteJob(job.id)}>
-                    remover job
+                    Remover Job
                   </Button>
                   <Button
                     onClick={() => {

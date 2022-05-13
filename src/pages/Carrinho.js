@@ -1,28 +1,37 @@
 import React from "react";
 import axios from "axios";
-import moment from "moment";
 import styled from "styled-components";
 
 const Button = styled.button`
   margin: 1%;
+  padding: 5px;
+  border-radius: 75px 75px 75px 75px;
   &:hover {
-    background-color: violet;
+    background-color: #F78002;
     cursor: pointer;
+    text-transform: uppercase;
+    font-weight:bold;
+    color:#1B4458;
   }
 `;
 
 const Main = styled.div`
-  background-color: #9933ff;
+  background-color: #F78002;
+  color: #1B4458 ;
   width: 100%;
   height: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
   align-content: center;
+
+  h1{
+    color: #F78002;
+  }
 `;
 
 const Job = styled.div`
-  background-color: #9933ff;
+  background-color:antiquewhite;
   width: 100%;
   height: 100%;
   display: flex;
@@ -78,7 +87,7 @@ export default class Carrinho extends React.Component {
       this.contratarServico(job.id);
     }
     this.props.limpaCarrinho();
-    alert("compra finalizada com sucesso!");
+    alert("Compra finalizada com sucesso!");
   };
 
   removerJob = (id) => {
@@ -134,10 +143,15 @@ export default class Carrinho extends React.Component {
     );
     return (
       <Main>
-        <h1>Dados da compra</h1>
+         <Job>
+        <h1>Carrinho</h1>
+        <hr></hr>
+        {jobList}</Job>
+        
+        <h2>Dados da compra</h2>
         <p>Preço total: R$ {total.toFixed(2)}</p>
         <Button onClick={this.props.vaiParaBusca}>
-          Voltar para a lista de Jobs
+          Voltar para Lista de Jobs
         </Button>
         <Button
           onClick={() => {
@@ -147,9 +161,6 @@ export default class Carrinho extends React.Component {
           Finalizar compra
         </Button>
         <hr></hr>
-        <h2>Carrinho</h2>
-        <hr></hr>
-        <Job>{jobList}</Job>
       </Main>
     );
   }

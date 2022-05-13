@@ -4,10 +4,15 @@ import axios from "axios";
 import styled from "styled-components";
 
 const Button = styled.button`
+  padding: 10px;
   margin: 1%;
+  border-radius: 75px 75px 75px 75px;
   &:hover {
-    background-color: violet;
+    background-color: #F78002;
     cursor: pointer;
+    text-transform: uppercase;
+    font-weight:bold;
+    color:inherit;
   }
 `;
 
@@ -16,7 +21,8 @@ const Select = styled.select`
 `;
 
 const Div = styled.div`
-  background-color: #9933ff;
+  background-color: antiquewhite;
+  color: #1B4458;
   width: 100%;
   height: 100%;
   display: flex;
@@ -159,7 +165,7 @@ export default class Cadastro extends React.Component {
         </select>
 
         <Form action="data">
-          <label htmlFor=""></label>
+          <label htmlFor="data">Prazo:</label>
           <input
             type="date"
             id=""
@@ -169,10 +175,11 @@ export default class Cadastro extends React.Component {
           />
               
         </Form>
-        <Button onClick={this.props.vaiParaBusca}>lista de Jobs</Button>
         <Button type="submit" onClick={this.cadastrarServico}>
           Cadastrar Serviço
         </Button>
+        <Button onClick={this.props.vaiParaBusca}>Voltar para Lista de Jobs</Button>
+        
       </Div>
 
     );
