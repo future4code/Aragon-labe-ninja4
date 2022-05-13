@@ -8,7 +8,9 @@ import styled from "styled-components";
 import "./App.css";
 
 const Main = styled.div`
-  background-color: #9933ff;
+  margin: 10px ;
+  background-color: #1B4458;
+  color: #F78002;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -18,9 +20,14 @@ const Main = styled.div`
 
 const Button = styled.button`
   margin: 1%;
+  padding: 10px;
+  border-radius: 75px 75px 75px 75px;
   &:hover {
-    background-color: violet;
+    background-color: #F78002;
     cursor: pointer;
+    text-transform: uppercase;
+    font-weight:bold;
+    color:#1B4458;
   }
 `;
 export default class App extends React.Component {
@@ -102,7 +109,7 @@ export default class App extends React.Component {
           />
         );
       default:
-        return <div>opção não encontrada!</div>;
+        return <div>Opção não encontrada!</div>;
     }
   };
 

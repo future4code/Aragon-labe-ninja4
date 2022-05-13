@@ -5,11 +5,46 @@ import styled from "styled-components";
 
 const Button = styled.button`
   margin: 1%;
+  padding: 10px;
+  border-radius: 75px 75px 75px 75px;
   &:hover {
-    background-color: violet;
+    background-color: #F78002;
     cursor: pointer;
+    text-transform: uppercase;
+    font-weight:bold;
+    color:#1B4458;
   }
 `;
+
+const Main = styled.div`
+  margin: 10px ;
+  background-color: antiquewhite;
+  color: #F78002;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  align-content: center;
+  height: 100vh;
+  width: 100%;
+
+  h1{
+    color: #1B4458;
+  }
+
+  h2{
+    text-transform: uppercase;
+  }
+
+  ul{
+    text-transform: capitalize;
+  }
+
+  h3{
+    text-decoration: underline;
+  }
+  
+`;
+
 export default class DetalhesJobs extends react.Component {
   state = {
     job: {},
@@ -39,12 +74,13 @@ export default class DetalhesJobs extends react.Component {
 
   render() {
     return (
-      <div>
+      <Main>
+        <h1>Detalhes do Job</h1>
         <h2>{this.state.job.title}</h2>
         <p>Preço: R${this.state.job.price},00</p>
         <p>Prazo: {moment(this.state.job.dueDate).format("DD/MM/YYYY")}</p>
-        <p>descrição:{this.state.job.description}</p>
-        <h3>formas de pagamento</h3>
+        <p>Descrição:{this.state.job.description}</p>
+        <h3>Formas de Pagamento</h3>
         <ul>
           {this.state.job.paymentMethods &&
             this.state.job.paymentMethods.map((method) => {
@@ -52,10 +88,10 @@ export default class DetalhesJobs extends react.Component {
             })}
         </ul>
         <Button onClick={this.props.vaiParaBusca}>
-          voltar para lista de jobs
+          Voltar para Lista de Jobs
         </Button>
         <hr></hr>
-      </div>
+      </Main>
     );
   }
 }
