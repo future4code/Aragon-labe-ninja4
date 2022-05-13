@@ -57,6 +57,7 @@ export default class BuscarJobs extends React.Component {
     pesquisa: "",
     precoMinimo: "",
     precoMaximo: "",
+    ordem: "title",
   };
 
   componentDidMount() {
@@ -73,6 +74,10 @@ export default class BuscarJobs extends React.Component {
 
   alteraPrecoMax = (event) => {
     this.setState({ precoMaximo: event.target.value });
+  };
+
+  atualizaOrdem = (event) => {
+    this.setState({ ordem: event.target.value });
   };
 
   deleteJob = (id) => {
@@ -129,6 +134,19 @@ export default class BuscarJobs extends React.Component {
           value={this.state.precoMaximo}
           onChange={this.alteraPrecoMax}
         />
+        <label for="sort"></label>
+        <select
+          name="sort"
+          value={this.state.ordem}
+          onChange={this.atualizaOrdem}
+        >
+          <option value="unsorted">Sem ordenação</option>
+          <option value="minPrice">Valor mínimo</option>
+          <option value="maxPrice">Valor máximo</option>
+          <option value="title">Título</option>
+          <option value="dueDate">Prazo</option>
+        </select>
+
         <hr></hr>
         <h2>Lista de Jobs</h2>
         <hr></hr>
@@ -150,6 +168,23 @@ export default class BuscarJobs extends React.Component {
                 this.state.precoMaximo === "" ||
                 job.price <= this.state.precoMaximo
               );
+            })
+            .sort((jobAtual, proximoJob) => {
+              switch (this.state.ordem) {
+                case "title":
+                  return jobAtual.title.localeCompare(proximoJob.title);
+                case "dueDate":
+                  return (
+                    new Date(jobAtual.dueDate).getTime() -
+                    new Date(proximoJob.dueDate).getTime()
+                  );
+                case "minPrice":
+                  return jobAtual.price - proximoJob.price;
+                case "maxPrice":
+                  return proximoJob.price - jobAtual.price;
+                default:
+                  return "title";
+              }
             })
             .map((job) => {
               console.log(job.dueDate);

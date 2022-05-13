@@ -167,12 +167,14 @@ export default class Cadastro extends React.Component {
             value={this.state.inputData}
             onChange={this.onChangeInputData}
           />
+              
         </Form>
         <Button onClick={this.props.vaiParaBusca}>lista de Jobs</Button>
         <Button type="submit" onClick={this.cadastrarServico}>
           Cadastrar Serviço
         </Button>
       </Div>
+
     );
   }
 }

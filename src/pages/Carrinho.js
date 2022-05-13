@@ -31,6 +31,7 @@ const Job = styled.div`
   align-content: center;
 `;
 
+
 export default class Carrinho extends React.Component {
   state = {
     jobs: [],
