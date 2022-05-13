@@ -4,7 +4,25 @@ import BuscarJobs from "./pages/BuscarJobs";
 import BemVindo from "./pages/Bemvindo";
 import Carrinho from "./pages/Carrinho";
 import DetalhesJobs from "./pages/DetalhesJobs";
+import styled from "styled-components";
+import "./App.css";
 
+const Main = styled.div`
+  background-color: #9933ff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  align-content: center;
+  height: 100vh;
+`;
+
+const Button = styled.button`
+  margin: 1%;
+  &:hover {
+    background-color: violet;
+    cursor: pointer;
+  }
+`;
 export default class App extends React.Component {
   state = {
     telaAtual: "inicio",
@@ -46,8 +64,8 @@ export default class App extends React.Component {
   };
 
   limpaCarrinho = () => {
-    this.setState({ carrinho: []})
-  }
+    this.setState({ carrinho: [] });
+  };
 
   escolheTela = () => {
     switch (this.state.telaAtual) {
@@ -90,17 +108,17 @@ export default class App extends React.Component {
 
   render() {
     return (
-      <div>
+      <Main>
         <>
           <h1>LabeNinjas</h1>
-          <button onClick={this.vaiParaInicio}>Home</button>
-          <button onClick={this.vaiParaCarrinho}>
-            Ir para Carrinho de Compras
-          </button>
+          <Button onClick={this.vaiParaInicio}>Home</Button>
+          <Button onClick={this.vaiParaCarrinho}>
+            Ir para Carrinho <br /> de Compras
+          </Button>
           <hr></hr>
         </>
         {this.escolheTela()}
-      </div>
+      </Main>
     );
   }
 }

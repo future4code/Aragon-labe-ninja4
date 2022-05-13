@@ -1,6 +1,44 @@
 // import Header from "./components/Header";
 import React from "react";
 import axios from "axios";
+import styled from "styled-components";
+
+const Button = styled.button`
+  margin: 1%;
+  &:hover {
+    background-color: violet;
+    cursor: pointer;
+  }
+`;
+
+const Select = styled.select`
+  margin: 1%;
+`;
+
+const Div = styled.div`
+  background-color: #9933ff;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  align-content: center;
+`;
+const Input = styled.input`
+  margin: 1%;
+
+  &:hover {
+    opacity: 80%;
+  }
+`;
+
+const Form = styled.form`
+  margin: 1%;
+
+  &:hover {
+    opacity: 80%;
+  }
+`;
 
 export default class Cadastro extends React.Component {
   state = {
@@ -32,9 +70,12 @@ export default class Cadastro extends React.Component {
   };
 
   handleMetodoPagamento = (event) => {
-    const value = Array.from(event.target.selectedOptions, option => option.value);
+    const value = Array.from(
+      event.target.selectedOptions,
+      (option) => option.value
+    );
     this.setState({ metodoPagamento: value });
-};
+  };
 
   cadastrarServico = () => {
     const url = "https://labeninjas.herokuapp.com/jobs";
@@ -46,7 +87,7 @@ export default class Cadastro extends React.Component {
       paymentMethods: this.state.metodoPagamento,
       dueDate: this.state.inputData,
     };
-console.log(body)
+    console.log(body);
     axios
       .post(url, body, {
         headers: {
@@ -69,33 +110,33 @@ console.log(body)
 
   render() {
     return (
-      <>
+      <Div>
         <h2>Cadastre um Novo Job</h2>
 
         <label>
           <p>Título:</p>
 
-          <input
+          <Input
             type="text"
             value={this.state.inputTitulo}
             onChange={this.onChangeInputTitulo}
-          ></input>
+          ></Input>
 
           <p>Descrição:</p>
 
-          <input
+          <Input
             type="text"
             value={this.state.inputDescricao}
             onChange={this.onChangeInputDescricao}
-          ></input>
+          ></Input>
 
           <p>Preço:</p>
 
-          <input
+          <Input
             type="number"
             value={this.state.inputPreco}
             onChange={this.onChangeInputPreco}
-          ></input>
+          ></Input>
         </label>
 
         <h4>
@@ -117,8 +158,8 @@ console.log(body)
           <option value="pix">Pix</option>
         </select>
 
-        <form action="data">
-          <label htmlFor="">Data:</label>
+        <Form action="data">
+          <label htmlFor=""></label>
           <input
             type="date"
             id=""
@@ -126,12 +167,12 @@ console.log(body)
             value={this.state.inputData}
             onChange={this.onChangeInputData}
           />
-        </form>
-        <button onClick={this.props.vaiParaBusca}>
-          Voltar para a lista de Jobs
-        </button>
-        <button type="submit" onClick={this.cadastrarServico}>Cadastrar Serviço</button>
-      </>
+        </Form>
+        <Button onClick={this.props.vaiParaBusca}>lista de Jobs</Button>
+        <Button type="submit" onClick={this.cadastrarServico}>
+          Cadastrar Serviço
+        </Button>
+      </Div>
     );
   }
 }
